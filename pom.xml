@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>template</groupId>
+	<artifactId>Eclipse_MavenSpringBootTemplate_JSP</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Eclipse_MavenSpringBootTemplate_JSP</name>
+
+	<properties>
+		<!-- maven plugin太新，eclipse不支援 https://www.twblogs.net/a/5d20a88ebd9eee1ede064f08 -->
+		<!-- pom.xml unknown error https://stackoverflow.com/questions/56142369/why-am-i-getting-unknown-error-in-line-1-of-pom-xml -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<!-- Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.6.RELEASE</version> <!-- 2.2.5 can't run jsp -->
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>${java.version}</release>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork> <!-- Spring Boot Hot Swap -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency> <!-- Spring Boot Hot Swap -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency> <!-- JSP -->
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<dependency> <!-- JSP -->
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
